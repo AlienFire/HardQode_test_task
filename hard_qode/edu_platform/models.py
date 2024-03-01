@@ -16,11 +16,14 @@ class Lesson(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+
+
 class Group(models.Model):
-    name = models.CharField(max_length=100)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-
-class Students(models.Model):
     name = models.CharField(max_length=100)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ["student", "product"]
